@@ -6,7 +6,7 @@ class Tree {
 private:
 public:
     // Constructor 
-    Node root; 
+    Node *root; 
     Tree(); 
     ~Tree();
     // Command handlers 
@@ -17,11 +17,9 @@ public:
     void empty(); 
     void clear();
     void size(); 
+    bool Exists(string word);
 
     // Helper functions
 
     
-
-    
-
 };
