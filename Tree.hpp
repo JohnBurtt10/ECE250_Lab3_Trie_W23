@@ -12,14 +12,16 @@ public:
     // Command handlers 
     void Insert(string word);
     void Erase(string word); 
-    void Print(Node Node); 
+    void Print(Node *Node); 
     void spellCheck(string word);
     void empty(); 
     void clear();
     void size(); 
-    bool Exists(string word);
 
     // Helper functions
+    void Delete(Node *Node);
+    bool Exists(string word);
+
 
     
 };

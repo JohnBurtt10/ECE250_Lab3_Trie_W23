@@ -8,8 +8,7 @@ class Node {
 private:
 public:
     char character;
-    // Node *parent;
-    vector<Node> children;
+    Node *children[26];
 
     // Constructor 
     Node(char character = 0); 
