@@ -2,7 +2,7 @@
 // Constructor 
 Tree::Tree()
 {
-    root = new Node();
+    root = new Node(0);
 }
 
 // Destructor 
@@ -11,15 +11,12 @@ Tree::~Tree() {
 }
 
 void Tree::Delete(Node *Node) {
-    unsigned int i = 0;
-    while (i < 24) { 
-        if (Node->children[i] != nullptr) {
+    for (int i = 0; i < 26; i++) {
+        if (Node->children[i] != nullptr) { 
             Delete(Node->children[i]);
-            delete(Node);
         }
-    i++;
-    }
-
+        }
+    delete Node;
 }
 
 bool Tree::Exists(string word) { 
@@ -29,7 +26,7 @@ bool Tree::Exists(string word) {
         // Get the position of in the alphabet of the character 
         int idx = word[i] - 'a';
         // Check if a child for that character already exists
-        if (temp->children[idx]->character == '\0') {
+        if (temp->children[idx] == nullptr) {
             // If it does, return false to indicate that the word does not exist
             return false; 
         }
@@ -40,30 +37,68 @@ bool Tree::Exists(string word) {
     return true;
 }
 void Tree::Insert(string word) { 
-    Node *temp = root; 
+    Node *temp = root;
     unsigned int i = 0;
     while (word[i] != '\0') {
         // Get the position of in the alphabet of the character 
-        int idx = word[i] - 'a';
+        int idx = word[i] - 'A' + 1;
         // Check if a child for that character already exists
-        if (temp->children[idx]->character != '\0') {
-            // If it doesn't, create it 
-            temp->children[idx] = new Node(word[i]); 
+        if (temp->children[idx] == nullptr) {
+        //     // If it doesn't, create it 
+            temp->children[idx] = new Node(word[i], temp); 
+
         }
         // Move temp down to the child corresponding to the character word[i]
         temp = temp->children[idx];
         i++;
     }
+    size++; 
 }
 
 void Tree::Print(Node *Node) { 
-    unsigned int i = 0;
-    while (i < 24) { 
+    for (int i =0; i < 26; i++) { 
         if (Node->children[i] != nullptr) {
             std::cout << Node->character; 
             Print(Node->children[i]);
         }
-    i++;
     }
 }
 
+void Tree::Empty() { 
+    for (int i =0; i < 26; i++) { 
+        if (Node->children[i] != nullptr) {
+            std::cout << "empty 0" << std::endl; 
+            return;
+        }
+    }
+    std::cout << "empty 1" << std::endl;
+}
+
+void Tree::Erase(string word) { 
+    if (!Exists(word)) { 
+        std::cout << "failure" << std::endl;
+    }
+    Node *temp = root; 
+    unsigned int i = 0;
+    while (word[i] != '\0') {
+        // Get the position of in the alphabet of the character 
+        int idx = word[i] - 'a';
+        // Move temp down to the child corresponding to the character word[i]
+        temp = temp->children[idx];
+        i++;
+    }
+    Node *Parent; 
+    while (true) {
+        Parent = temp->parent; 
+        delete temp; 
+        // Continue deleting nodes until one of temp's ancestors has siblings
+        for (int i =0; i < 26; i++) { 
+        if (temp[i] != nullptr) {
+            std::cout << "success" << std::endl; 
+            return;
+        }
+    }
+    temp = Parent; 
+    }
+
+}

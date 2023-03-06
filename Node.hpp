@@ -8,10 +8,11 @@ class Node {
 private:
 public:
     char character;
-    Node *children[26];
+    Node *parent = nullptr;
+    Node *children[26] = {nullptr};
 
     // Constructor 
-    Node(char character = 0); 
+    Node(char character, Node *parent = nullptr); 
 
 };
 #endif

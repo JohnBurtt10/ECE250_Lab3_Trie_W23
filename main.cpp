@@ -37,6 +37,8 @@ int main() {
         } 
         else if (cmd == "empty") { 
         } else if (cmd == "clear") { 
+            tree->Delete(tree->root); 
+            tree->root = new Node(0);
         } else if (cmd == "size") { 
         }
         else if (cmd == "exit") { 

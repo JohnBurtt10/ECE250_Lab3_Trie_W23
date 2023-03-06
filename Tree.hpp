@@ -7,6 +7,7 @@ private:
 public:
     // Constructor 
     Node *root; 
+    unsigned int size = 0; 
     Tree(); 
     ~Tree();
     // Command handlers 
