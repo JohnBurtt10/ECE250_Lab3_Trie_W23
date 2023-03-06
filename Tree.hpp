@@ -7,17 +7,19 @@ private:
 public:
     // Constructor 
     Node *root; 
-    unsigned int size = 0; 
+    unsigned int size; 
     Tree(); 
     ~Tree();
     // Command handlers 
+    // TODO:: figure out capital letters for functions
     void Insert(string word);
     void Erase(string word); 
-    void Print(Node *Node); 
+    void Print(Node *Node, string s); 
     void spellCheck(string word);
     void empty(); 
     void clear();
-    void size(); 
+    void Empty();
+    unsigned int count(Node *Node, string word);
 
     // Helper functions
     void Delete(Node *Node);
