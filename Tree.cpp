@@ -61,17 +61,19 @@ void Tree::Insert(string word) {
     size++;
 }
 
-void Tree::Print(Node *Node, string s) {
-    if (Node ->character == 26) { 
+void Tree::Print(Node *Node, string s, bool firstWord) {
+    if (Node ->character == 26) {
+        if (!firstWord) { 
+            std::cout << " "; 
+        }
          std::cout << s;  
         // Prints a space after the last letter in the word
-        std::cout << " ";
         return;
     }
     s += Node->character;
     for (int i =0; i < 26; i++) {
         if (Node->children[i] != nullptr) {
-            Print(Node->children[i], s);
+            Print(Node->children[i], s, firstWord);
         }
     }
 }
@@ -142,7 +144,7 @@ void Tree::spellCheck(string word) {
         // Move temp down to the child corresponding to the character word[i]
         i++;
     }
-    Print(temp, word.substr(0,i-1));
+    Print(temp, word.substr(0,i-1), true);
     std::cout << std::endl;
 }
 

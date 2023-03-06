@@ -14,7 +14,7 @@ public:
     // TODO:: figure out capital letters for functions
     void Insert(string word);
     void Erase(string word); 
-    void Print(Node *Node, string s); 
+    void Print(Node *Node, string s, bool firstWord); 
     void spellCheck(string word);
     void empty(); 
     void clear();

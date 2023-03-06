@@ -35,7 +35,7 @@ int main() {
             cin >> word; 
             tree->Erase(word);
         } else if (cmd == "p") { 
-            tree->Print(tree->root, "");
+            tree->Print(tree->root, "", true);
             std::cout << std::endl;
         } else if (cmd == "spellcheck") {
             cin >> word;
