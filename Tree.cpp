@@ -89,31 +89,40 @@ void Tree::Empty() {
 void Tree::Erase(string word) { 
     if (!Exists(word)) { 
         std::cout << "failure" << std::endl;
+        return;
     }
     Node *temp = root; 
     unsigned int i = 0;
     while (word[i] != '\0') {
         // Get the position of in the alphabet of the character 
-        int idx = word[i] - 'a';
+        int idx = word[i] - 'A' + 1;
+        if (temp->children[idx] == nullptr) {
+            break;
+        }
         // Move temp down to the child corresponding to the character word[i]
         temp = temp->children[idx];
         i++;
     }
-    Node *Parent; 
+    Node *parent = temp->parent; 
     while (true) {
-        Parent = temp->parent; 
         delete temp; 
+        // Update parent's children array to remove the deleted node
+        int idx = word[i-1] - 'A' + 1;
+        parent->children[idx] = nullptr;
         // Continue deleting nodes until one of temp's ancestors has siblings
         for (int i =0; i < 26; i++) { 
-        if (temp->children[i] != nullptr) {
-            std::cout << "success" << std::endl; 
-            return;
+            if (parent->children[i] != nullptr) {
+                std::cout << "success" << std::endl; 
+                return;
+            }
         }
-    }
-    temp = Parent; 
+        temp = parent; 
+        parent = parent->parent;
+        i--;
     }
     size--;
 }
+
 
 void Tree::spellCheck(string word) { 
     if (Exists(word)) { 
