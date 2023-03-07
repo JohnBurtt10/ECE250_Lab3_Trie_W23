@@ -73,20 +73,19 @@ void Tree::Print(Node *Node, string s) {
     // std::cout << Node->character;  
     // }
     // std::cout << Node->character;  
-    if (Node->character - 'r' != 0 && Node->character != 27) { 
-        std::cout << Node->character;  
-    }
+    // if (Node->character - 'r' != 0 && Node->character != 27) { 
+    //     std::cout << Node->character;  
+    // }
     if (Node ->character == 27) {
+        std::cout << s; 
         std::cout << " "; 
         return;
     }
-    // if (Node->character - 'r' != 0) { 
-    //     s += Node->character;
-    // }
+    if (Node->character - 'r' != 0) { 
+        s += Node->character;
+    }
     for (int i =0; i < 27; i++) {
         if (Node->children[i] != nullptr) {
-            if (Node->children[i]->character == 'X') { 
-            }
             Print(Node->children[i], s);
         }
     }
