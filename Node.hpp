@@ -9,7 +9,7 @@ private:
 public:
     char character;
     Node *parent = nullptr;
-    Node *children[26] = {nullptr};
+    Node *children[27] = {nullptr};
 
     // Constructor 
     Node(char character, Node *parent = nullptr); 

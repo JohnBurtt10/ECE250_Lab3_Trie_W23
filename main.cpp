@@ -37,7 +37,7 @@ int main() {
             unsigned int i = 0;
             bool flag = false;
             while (word[i] != '\0') { 
-                if ((word[i] - 'A' + 1) < 1 || (word[i] - 'A' + 1) > 26) {
+                if ((word[i] - 'A' + 1) < 1 || (word[i] - 'A' + 1) > 27) {
                     try {
                         throw illegal_exception("illegal argument");
                     } catch (illegal_exception mce) {
@@ -64,7 +64,7 @@ int main() {
             unsigned int count = 0;
             bool flag = false; 
             while (prefix[i] != '\0') { 
-                if ((prefix[i] - 'A' + 1) < 1 || (prefix[i] - 'A' + 1) > 26) {
+                if ((prefix[i] - 'A' + 1) < 1 || (prefix[i] - 'A' + 1) > 27) {
                     try {
                         throw illegal_exception("illegal argument");
                     } catch (illegal_exception mce) {
@@ -105,7 +105,7 @@ int main() {
             unsigned int i = 0;
             bool flag = false;
             while (word[i] != '\0') { 
-            if ((word[i] - 'A' + 1) < 1 || (word[i] - 'A' + 1) > 26) {
+            if ((word[i] - 'A' + 1) < 1 || (word[i] - 'A' + 1) > 27) {
                     try {
                         throw illegal_exception("illegal argument");
                     } catch (illegal_exception mce) {
