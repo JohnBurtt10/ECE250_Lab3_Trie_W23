@@ -14,12 +14,12 @@ public:
     // TODO:: figure out capital letters for functions
     void Insert(string word);
     void Erase(string word); 
-    void Print(Node *Node, string s, bool firstWord); 
+    void Print(Node *Node, string s); 
     void spellCheck(string word);
     void empty(); 
     void clear();
-    void Empty();
-    unsigned int count(Node *Node, string word);
+    bool Empty();
+    unsigned int count(Node *Node);
 
     // Helper functions
     void Delete(Node *Node);

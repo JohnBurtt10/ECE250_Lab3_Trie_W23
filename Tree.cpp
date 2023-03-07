@@ -2,7 +2,7 @@
 // Constructor 
 Tree::Tree()
 {
-    root = new Node(0);
+    root = new Node('r');
     size = 0;
 }
 
@@ -11,13 +11,22 @@ Tree::~Tree() {
     Delete(root);
 }
 
-void Tree::Delete(Node *Node) {
+void Tree::Delete(Node* root) {
+    // Base case: if root is null, return
+    if (!root) {
+        return;
+    }
+    if (root->character == 26) { 
+        size--;
+    }
+    // Delete all child nodes using recursion
     for (int i = 0; i < 26; i++) {
-        if (Node->children[i] != nullptr) { 
-            Delete(Node->children[i]);
+        if (root->children[i]) {
+            Delete(root->children[i]);
         }
-        }
-    delete Node;
+    }
+    // Delete the root node
+    delete root;
 }
 
 bool Tree::Exists(string word) { 
@@ -35,9 +44,6 @@ bool Tree::Exists(string word) {
         temp = temp->children[idx];
         i++;
     }
-    // if (temp->children[0] != nullptr) { 
-    //     std::cout << temp->children[0]->character << std::endl;
-    // }
 
     return temp->children[0] != nullptr && temp->children[0]->character == 26; 
 }
@@ -49,7 +55,7 @@ void Tree::Insert(string word) {
         int idx = word[i] - 'A' + 1;
         // Check if a child for that character already exists
         if (temp->children[idx] == nullptr) {
-        //     // If it doesn't, create it 
+        // If it doesn't, create it 
             temp->children[idx] = new Node(word[i], temp); 
         }
         // Move temp down to the child corresponding to the character word[i]
@@ -61,31 +67,33 @@ void Tree::Insert(string word) {
     size++;
 }
 
-void Tree::Print(Node *Node, string s, bool firstWord) {
+void Tree::Print(Node *Node, string s) {
+    // if (Node->character - 'r' != 0) { 
+    // std::cout << Node->character;  
+    // }
+    // std::cout << Node->character;  
     if (Node ->character == 26) {
-        if (!firstWord) { 
-            std::cout << " "; 
-        }
-         std::cout << s;  
-        // Prints a space after the last letter in the word
+        std::cout << Node->character;  
+        std::cout << " "; 
         return;
     }
-    s += Node->character;
+    if (Node->character - 'r' != 0) { 
+        s += Node->character;
+    }
     for (int i =0; i < 26; i++) {
         if (Node->children[i] != nullptr) {
-            Print(Node->children[i], s, firstWord);
+            Print(Node->children[i], s);
         }
     }
 }
 
-void Tree::Empty() { 
+bool Tree::Empty() { 
     for (int i =0; i < 26; i++) { 
         if (root->children[i] != nullptr) {
-            std::cout << "empty 0" << std::endl; 
-            return;
+            return false;
         }
     }
-    std::cout << "empty 1" << std::endl;
+    return true;
 }
 
 void Tree::Erase(string word) { 
@@ -105,16 +113,26 @@ void Tree::Erase(string word) {
         temp = temp->children[idx];
         i++;
     }
+    delete temp->children[0]; 
+    temp->children[0] = nullptr;
     Node *parent = temp->parent; 
-    while (true) {
+    for (int j =0; j < 26; j++) { 
+        if (temp->children[j] != nullptr) {
+            std::cout << "success" << std::endl; 
+            size--;
+            return;
+        }
+    }
+    while (i > 0) {
         delete temp; 
         // Update parent's children array to remove the deleted node
         int idx = word[i-1] - 'A' + 1;
         parent->children[idx] = nullptr;
         // Continue deleting nodes until one of temp's ancestors has siblings
-        for (int i =0; i < 26; i++) { 
-            if (parent->children[i] != nullptr) {
+        for (int j =0; j < 26; j++) { 
+            if (parent->children[j] != nullptr) {
                 std::cout << "success" << std::endl; 
+                size--;
                 return;
             }
         }
@@ -122,9 +140,7 @@ void Tree::Erase(string word) {
         parent = parent->parent;
         i--;
     }
-    size--;
 }
-
 
 void Tree::spellCheck(string word) { 
     if (Exists(word)) { 
@@ -144,19 +160,20 @@ void Tree::spellCheck(string word) {
         // Move temp down to the child corresponding to the character word[i]
         i++;
     }
-    Print(temp, word.substr(0,i-1), true);
+    if (i > 0) { 
+        Print(temp, word.substr(0,i-1));
+    }
     std::cout << std::endl;
 }
 
-unsigned int Tree::count(Node *Node, string s) {
+unsigned int Tree::count(Node *Node) {
     unsigned int count = 0;
     if (Node ->character == 26) {
         return 1;
     }
-    s += Node->character;
     for (int i =0; i < 26; i++) {
         if (Node->children[i] != nullptr) {
-            count += this->count(Node->children[i], s);
+            count += this->count(Node->children[i]);
         }
     }
     return count;
