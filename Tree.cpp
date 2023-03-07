@@ -81,7 +81,7 @@ void Tree::Print(Node *Node, string s) {
         std::cout << " "; 
         return;
     }
-    if (Node->character - 'r' != 0) { 
+    if ((Node->character - 'A' +1) > 0 && (Node->character - 'A' +1) < 27) { 
         s += Node->character;
     }
     for (int i =0; i < 27; i++) {
@@ -101,6 +101,7 @@ bool Tree::Empty() {
 }
 
 void Tree::Erase(string word) { 
+    // std::cout << "trying to erase: " << word << std::endl;
     if (!Exists(word)) { 
         std::cout << "failure" << std::endl;
         return;
@@ -144,6 +145,8 @@ void Tree::Erase(string word) {
         parent = parent->parent;
         i--;
     }
+     std::cout << "success" << std::endl; 
+    size--;
 }
 
 void Tree::spellCheck(string word) { 
